@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "SocietyOS",
+    "slug": "society-management-saas",
+    "scheme": "societyos",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "plugins": ["expo-secure-store"],
+    "ios": { "supportsTablet": true },
+    "android": { "package": "com.societyos.mobile" }
+  }
+}

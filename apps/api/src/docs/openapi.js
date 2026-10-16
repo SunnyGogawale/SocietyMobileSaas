@@ -1,0 +1,27 @@
+export const openApiDocument = {
+  openapi: '3.1.0',
+  info: {
+    title: 'Society Management API',
+    version: '1.0.0',
+    description: 'Versioned API for society operations. Society data is scoped to the authenticated tenant.',
+  },
+  servers: [{ url: '/api/v1' }],
+  paths: {
+    '/health/live': { get: { summary: 'Process liveness', responses: { 200: { description: 'Process is running.' } } } },
+    '/health/ready': { get: { summary: 'Service readiness', responses: { 200: { description: 'Dependencies are ready.' }, 503: { description: 'A required dependency is unavailable.' } } } },
+    '/auth/login': { post: { summary: 'Create a web or mobile session', responses: { 200: { description: 'Session created.' }, 401: { description: 'Invalid credentials.' } } } },
+    '/auth/refresh': { post: { summary: 'Rotate a session refresh token', responses: { 200: { description: 'Rotated session tokens.' }, 401: { description: 'Refresh token invalid, expired, or reused.' } } } },
+    '/auth/mfa/setup': { post: { summary: 'Start TOTP MFA enrollment', responses: { 200: { description: 'One-time secret and authenticator URI.' }, 401: { description: 'Authentication required.' } } } },
+    '/auth/mfa/enable': { post: { summary: 'Verify and enable TOTP MFA', responses: { 200: { description: 'MFA enabled; recovery codes returned once.' }, 400: { description: 'Invalid TOTP code.' } } } },
+    '/auth/mfa/disable': { post: { summary: 'Disable MFA after password and code verification', responses: { 200: { description: 'MFA disabled and sessions revoked.' }, 401: { description: 'Invalid credentials or code.' } } } },
+    '/auth/signup': { post: { summary: 'Create a restricted resident account', responses: { 201: { description: 'Account created; email verification is required.' }, 409: { description: 'Email or mobile number already exists.' } } } },
+    '/auth/bootstrap/super-admin': { post: { summary: 'One-time secret-gated initial platform administrator bootstrap', responses: { 201: { description: 'Initial administrator created and audited.' }, 404: { description: 'Bootstrap is disabled.' }, 409: { description: 'Bootstrap was already consumed.' } } } },
+    '/auth/verify-email': { post: { summary: 'Verify an email using a one-time token', responses: { 200: { description: 'Email verified.' }, 400: { description: 'Token is invalid or expired.' } } } },
+    '/auth/forgot-password': { post: { summary: 'Request password reset instructions', responses: { 200: { description: 'Generic response that does not disclose account existence.' } } } },
+    '/auth/reset-password': { post: { summary: 'Set a new password using a one-time token', responses: { 200: { description: 'Password updated and sessions revoked.' }, 400: { description: 'Token is invalid or expired.' } } } },
+    '/auth/logout': { post: { summary: 'End a session', responses: { 204: { description: 'Session ended.' } } } },
+    '/auth/me': { get: { summary: 'Get the current user', responses: { 200: { description: 'Current user.' }, 401: { description: 'Authentication required.' } } } },
+    '/auth/invitations': { post: { summary: 'Invite a user to the current society', responses: { 201: { description: 'Invitation sent.' }, 403: { description: 'Role assignment is not permitted.' } } } },
+    '/residents': { get: { summary: 'List residents in the current society', responses: { 200: { description: 'Paginated residents.' }, 403: { description: 'Tenant context or permission required.' } } } },
+  },
+}

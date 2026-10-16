@@ -1,0 +1,7 @@
+{
+  "name": "@society/config",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": { "./prettier": "./prettier.config.cjs" }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@society/validation",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": { ".": "./src/index.js" },
+  "dependencies": {
+    "@society/constants": "*",
+    "zod": "^3.24.2"
+  }
+}

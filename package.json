@@ -1,24 +1,26 @@
 {
-  "name": "society-saas",
+  "name": "society-management-saas",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "oxlint",
-    "preview": "vite preview"
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10.9.0"
   },
-  "dependencies": {
-    "lucide-react": "^1.55.0",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+  "packageManager": "npm@10.9.4",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "concurrently -k -n WEB,API -c green,blue \"npm:dev:web\" \"npm:dev:api\"",
+    "dev:web": "npm run dev --workspace @society/web",
+    "dev:api": "npm run dev --workspace @society/api",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "oxlint apps packages",
+    "test": "npm test --workspaces --if-present",
+    "format": "prettier --config packages/config/prettier.config.cjs --write \"**/*.{js,jsx,json,md,yml,yaml}\""
   },
   "devDependencies": {
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
-    "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^9.1.2",
     "oxlint": "^1.81.0",
-    "vite": "^8.3.0"
+    "prettier": "^3.5.3"
   }
 }
